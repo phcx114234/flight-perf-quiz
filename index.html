@@ -121,7 +121,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft Ya
 <div class="progress"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
 <div class="stats" id="stats">
 <span>📝 <span id="stat-total">0</span> 题</span>
-<span class="correct">OK: <span id="stat-correct">0</span></span>
+<span class="correct">&#10004;<span id="stat-correct">0</span></span>
 <span class="wrong">X <span id="stat-wrong">0</span></span>
 <span>⏭️ <span id="stat-skip">0</span></span>
 </div>
@@ -244,16 +244,16 @@ function renderQuestion(q) {
       if (!isDone && !studyMode && (userAns || '').includes(opt.letter)) cls += ' selected';
       html += `<div class="${cls}" data-value="${opt.letter}">
         <span class="letter">${opt.letter}.</span><span>${opt.text}</span>
-        ${showAnswer && q.answer.includes(opt.letter) ? '<span class="ans-tag">✓ 答案</span>' : ''}
+        ${showAnswer && q.answer.includes(opt.letter) ? '<span class="ans-tag">&#10004; 答案</span>' : ''}
       </div>`;
     }
     html += '</div>';
     if (showAnswer) {
-      html += `<div class="result show correct">OK: 正确答案：<strong>${q.answer}</strong></div>`;
+      html += `<div class="result show correct">&#10004;正确答案：<strong>${q.answer}</strong></div>`;
     } else if (isDone) {
       const ok = isAnswerCorrect(q, userAns);
       html += `<div class="result show ${ok ? 'correct' : 'wrong'}">
-        ${ok ? 'OK: 正确！' : 'X 错误，正确答案是 ' + q.answer}
+        ${ok ? '&#10004;正确！' : '&#10008; 错误，正确答案是 ' + q.answer}
       </div>`;
     }
   } else if (q.type === 'tf') {
@@ -263,15 +263,15 @@ function renderQuestion(q) {
       if (showAnswer && val === q.answer) cls = ' correct';
       if (isDone && userAns === val && val !== q.answer) cls = ' wrong';
       if (!isDone && !studyMode && userAns === val) cls = ' selected';
-      html += `<button class="${cls}" data-value="${val}">${val === '对' ? '✓' : '✗'} ${val}${showAnswer && val === q.answer ? ' · 答案' : ''}</button>`;
+      html += `<button class="${cls}" data-value="${val}">${val === '对' ? '&#10004;' : '&#10008;'} ${val}${showAnswer && val === q.answer ? ' · 答案' : ''}</button>`;
     }
     html += '</div>';
     if (showAnswer) {
-      html += `<div class="result show correct">OK: 正确答案：<strong>${q.answer}</strong></div>`;
+      html += `<div class="result show correct">&#10004;正确答案：<strong>${q.answer}</strong></div>`;
     } else if (isDone) {
       const ok = userAns === q.answer;
       html += `<div class="result show ${ok ? 'correct' : 'wrong'}">
-        ${ok ? 'OK: 正确！' : 'X 错误，正确答案是 ' + q.answer}
+        ${ok ? '&#10004;正确！' : '&#10008; 错误，正确答案是 ' + q.answer}
       </div>`;
     }
   } else if (q.type === 'fill') {
@@ -285,7 +285,7 @@ function renderQuestion(q) {
     }
     html += '</div>';
     if (showAnswer && q.answers) {
-      html += `<div class="result show correct">OK: 答案：<strong>${q.answers.join('、')}</strong></div>`;
+      html += `<div class="result show correct">&#10004;答案：<strong>${q.answers.join('、')}</strong></div>`;
     }
   }
 
@@ -298,7 +298,7 @@ function renderQuestion(q) {
   html += '<div class="actions">';
   if (currentIndex > 0) html += '<button class="btn btn-outline" id="btn-prev">← 上一题</button>';
   if (!studyMode && !isDone) {
-    html += '<button class="btn btn-primary" id="btn-submit">✓ 提交</button>';
+    html += '<button class="btn btn-primary" id="btn-submit">&#10004; 提交</button>';
     html += '<button class="btn btn-outline" id="btn-reveal">💡 看答案</button>';
   }
   if (currentIndex < filteredQuestions.length - 1) {
@@ -427,13 +427,13 @@ function showReview() {
     html += `<div class="review-item ${cls}">`;
     html += `<div class="review-q"><strong>${displayNum}.</strong> ${q.stem.substring(0, 80)}...</div>`;
     if (q.type === 'choice') {
-      html += `<div class="review-answer">OK: 正确答案：${q.answer}</div>`;
+      html += `<div class="review-answer">&#10004;正确答案：${q.answer}</div>`;
       if (done && user !== q.answer) html += `<div class="review-your">X 你的答案：${user || '(未选)'}</div>`;
     } else if (q.type === 'tf') {
-      html += `<div class="review-answer">OK: 正确答案：${q.answer}</div>`;
+      html += `<div class="review-answer">&#10004;正确答案：${q.answer}</div>`;
       if (done && user !== q.answer) html += `<div class="review-your">X 你的答案：${user || '(未选)'}</div>`;
     } else if (q.type === 'fill') {
-      html += `<div class="review-answer">OK: 正确答案：${(q.answers || []).join('、')}</div>`;
+      html += `<div class="review-answer">&#10004;正确答案：${(q.answers || []).join('、')}</div>`;
       if (done && user) html += `<div class="review-your">📝 你的答案：${Array.isArray(user) ? user.join('、') : user}</div>`;
     }
     if (q.explanation) html += `<div style="color:#0369a1;font-size:12px;margin-top:4px;">💡 ${q.explanation}</div>`;
