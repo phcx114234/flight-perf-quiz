@@ -1,0 +1,4 @@
+*.py
+ocr_output/
+perf-deploy/
+build_*.py
